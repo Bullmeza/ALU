@@ -48,11 +48,11 @@ function calc() {
             bools2.push(false);
         }
     }
-    while (bools1.length < bools2.length) {
+    while (bools1.length <= bools2.length) {
         bools1.unshift(false);
         console.log("bool1")
     }
-    while (bools2.length < bools1.length) {
+    while (bools2.length <= bools1.length) {
         bools2.unshift(false);
         console.log("bool2")
     }
@@ -83,14 +83,11 @@ function calc() {
     else {
         document.getElementById("type").innerHTML = "-";
         if (parseInt(box1DEC) < parseInt(box2DEC)) {
-
-
-
             var output = [];
             var bout = false;
             for (var i = 0; i < Math.max(bools1.length, bools2.length); i++) {
-                var diff = Boolean(bools1[bools1.length - i - 1] ^ bools2[bools2.length - i - 1] ^ bout);
-                bout = Boolean((!bools1[bools1.length - i - 1]) && bout) + (((!bools1[bools1.length - i - 1]) && (bools2[bools2.length - i - 1])) + (bools2[bools2.length - i - 1] && bout));
+                var diff = Boolean((bools1[bools1.length - i - 1] ^ bools2[bools2.length - i - 1]) ^ bout);
+                bout = Boolean((bout && !(bools1[bools1.length - i - 1] ^ bools2[bools2.length - i - 1]) || (!bools1[bools1.length - i - 1] && bools2[bools2.length - i - 1])));
                 output.push(diff);
             }
             // output.push(bout);
@@ -122,7 +119,7 @@ function calc() {
             var bout = false;
             for (var i = 0; i < Math.max(bools1.length, bools2.length); i++) {
                 var diff = Boolean(bools1[bools1.length - i - 1] ^ bools2[bools2.length - i - 1] ^ bout);
-                bout = Boolean(!bools1[bools1.length - i - 1] && bout) + (!bools1[bools1.length - i - 1] && (bools2[bools2.length - i - 1]) + (bools2[bools2.length - i - 1] && bout));
+                bout = Boolean((bout && !(bools1[bools1.length - i - 1] ^ bools2[bools2.length - i - 1]) || (!bools1[bools1.length - i - 1] && bools2[bools2.length - i - 1])));
                 output.push(diff);
             }
             output.push(bout);
