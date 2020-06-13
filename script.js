@@ -28,6 +28,15 @@ function calc() {
         document.getElementById("box2_converted").innerHTML = "Decimal: " + parseInt(box2, 2);
         box2DEC = parseInt(box2, 2);
     }
+    // while (box1.length < box2.length) {
+    //     var temp = box1;
+    //     box1 = "";
+    //     box1 += 0;
+    //     box2 += temp;
+    // }
+
+    console.log(box1)
+    console.log(box2)
 
     var bools1 = []
     for (var i = 0; i < box1.length; i++) {
@@ -45,6 +54,8 @@ function calc() {
             bools2.push(false);
         }
     }
+    console.log(box1DEC);
+    console.log(box2DEC);
 
 
     if ($('#myonoffswitch:checked').val() == "on") {
@@ -71,31 +82,38 @@ function calc() {
     }
     else {
         document.getElementById("type").innerHTML = "-";
-        if (box1DEC < box2DEC) {
+        if (parseInt(box1DEC) < parseInt(box2DEC)) {
+
+
+
             var output = [];
             var bout = false;
             for (var i = 0; i < Math.max(bools1.length, bools2.length); i++) {
                 var diff = Boolean(bools1[bools1.length - i - 1] ^ bools2[bools2.length - i - 1] ^ bout);
-                bout = Boolean(!bools1[bools1.length - i - 1] && bout) + (!bools1[bools1.length - i - 1] && (bools2[bools2.length - i - 1]) + (bools2[bools2.length - i - 1] && bout));
+                bout = Boolean((!bools1[bools1.length - i - 1]) && bout) + (((!bools1[bools1.length - i - 1]) && (bools2[bools2.length - i - 1])) + (bools2[bools2.length - i - 1] && bout));
                 output.push(diff);
             }
-            output.push(bout);
+            // output.push(bout);
             output = output.reverse();
+            var remove = false;
             var output_raw = "";
             for (var i = 0; i < output.length; i++) {
                 if (output[i] == 1) {
                     output_raw += 1;
+                    remove = true;
                 }
                 else {
-                    output_raw += 0;
+                    if (remove) {
+                        output_raw += 0;
+                    }
                 }
             }
             var dec = 0;
-            dec -= Math.pow(2, output.length - 1);
-            for (var i = 1; i < output.length; i++) {
-                if (output[i]) {
-                    dec += Math.pow(2, output.length - 1 - i);
-                    console.log(Math.pow(2, output.length - 1 - i));
+            dec -= Math.pow(2, output_raw.length - 1);
+            for (var i = 1; i < output_raw.length; i++) {
+                if (output_raw[i] == 1) {
+                    dec += Math.pow(2, output_raw.length - 1 - i);
+                    // console.log(Math.pow(2, output.length - 1 - i));
                 }
             }
             document.getElementById("output").innerHTML = output_raw + " = (two's complement) " + dec;
@@ -107,6 +125,7 @@ function calc() {
                 bout = Boolean(!bools1[bools1.length - i - 1] && bout) + (!bools1[bools1.length - i - 1] && (bools2[bools2.length - i - 1]) + (bools2[bools2.length - i - 1] && bout));
                 output.push(diff);
             }
+            output.push(bout);
             output = output.reverse();
             var output_raw = "";
             for (var i = 0; i < output.length; i++) {
