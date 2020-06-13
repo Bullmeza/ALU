@@ -28,12 +28,6 @@ function calc() {
         document.getElementById("box2_converted").innerHTML = "Decimal: " + parseInt(box2, 2);
         box2DEC = parseInt(box2, 2);
     }
-    // while (box1.length < box2.length) {
-    //     var temp = box1;
-    //     box1 = "";
-    //     box1 += 0;
-    //     box2 += temp;
-    // }
 
     console.log(box1)
     console.log(box2)
@@ -54,8 +48,14 @@ function calc() {
             bools2.push(false);
         }
     }
-    console.log(box1DEC);
-    console.log(box2DEC);
+    while (bools1.length < bools2.length) {
+        bools1.unshift(false);
+        console.log("bool1")
+    }
+    while (bools2.length < bools1.length) {
+        bools2.unshift(false);
+        console.log("bool2")
+    }
 
 
     if ($('#myonoffswitch:checked').val() == "on") {
